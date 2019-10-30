@@ -193,7 +193,6 @@ public class NeuralSystem implements Runnable {
 
 
 		DataPoint point = new DataPoint(value, 0);
-		point.setAndApplyType(headerHandler.getType());
 
 
 		double[] outputs = network.evaluate(point);

@@ -53,7 +53,6 @@ public class DataCollection {
         for(int i = 0; i < nbLines; i++)
         {
         	DataPoint dp = new DataPoint(content[i], outputNb);
-        	dp.setAndApplyType(hh.getType());
             points.add(dp);
             
         }
