@@ -9,7 +9,7 @@ public class BinaryData extends SimpleData{
 	}
 
 	public void makeDataPoint() {
-		
+		System.out.print("INFO - Entrance MakeDataPoint of " + name + " of type binary");
 	}
 
 }

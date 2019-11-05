@@ -18,20 +18,20 @@ import org.piwel.linknet.data.DataType;
 import org.piwel.linknet.data.SimpleData;
 
 public class DatasetFileProvider {
-	public final String path;
-	public SimpleData datas;
+	private final String path;
+	private final SimpleData datas;
 	public DatasetFileProvider(String path) {
 		this.path = path;
 		this.datas = readJson(path);
 	}
 	@SuppressWarnings("rawtypes")
-	public SimpleData readJson(String path) {
+	private SimpleData readJson(String path) {
 		JSONParser jsonParser = new JSONParser();
 		Class dataTypeClass;
 		Constructor constructor;
 		try {
 			JSONObject jsonArray = (JSONObject) jsonParser.parse(new FileReader(path));
-			dataTypeClass = DataType.TYPE.get((String) jsonArray.get(""));
+			dataTypeClass = DataType.TYPE.get((String) jsonArray.get("type"));
 			constructor = dataTypeClass.getConstructor(JSONObject.class);
 			return (SimpleData) constructor.newInstance(jsonArray);
 		}catch (ParseException e) {
@@ -43,6 +43,9 @@ public class DatasetFileProvider {
 		}
 		return null;
 		
+	}
+	public SimpleData getDatas() {
+		return datas;
 	}
 		
 }
