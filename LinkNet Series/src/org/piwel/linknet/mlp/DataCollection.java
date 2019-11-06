@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.piwel.linknet.parser.header.HeaderHandler;
-
 /**
  * 
  * @author Atomix
@@ -46,7 +44,7 @@ public class DataCollection {
      * @param trainingRatio Taux d'exemple à tester par génération (ex : 0.2 : 1/5 des exemples de contenu; 1 : tous les exemples de contenu)
      */
     
-   	public DataCollection(String[] content, int outputNb, double trainingRatio, HeaderHandler hh)
+   	public DataCollection(double[][] content, int outputNb, double trainingRatio)
     {
         int nbLines = content.length;
         List<DataPoint> points = new ArrayList<DataPoint>();

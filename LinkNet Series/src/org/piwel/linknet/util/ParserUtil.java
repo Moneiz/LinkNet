@@ -1,6 +1,5 @@
 package org.piwel.linknet.util;
 
-import java.text.ParseException;
 
 public class ParserUtil {
 	

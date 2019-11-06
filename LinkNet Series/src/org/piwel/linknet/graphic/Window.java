@@ -22,6 +22,8 @@ import org.piwel.linknet.mlp.NeuralSystem;
 import org.piwel.linknet.mlp.Neuron;
 import org.piwel.linknet.parser.CharParser;
 
+
+//All this file will be reviewed in the next versions
 public class Window extends JFrame{
 
 	private DrawPanel panel;
@@ -33,9 +35,9 @@ public class Window extends JFrame{
 	public boolean autoMode=true;
 	public String type;
 	
-	public Window(String model, String type) {
+	public Window(String model) {
 		this.model = model;
-		this.type = type;
+		this.type = "bit";
 		setTitle(model);
 		setSize(width, height);
 		panel = new DrawPanel();
@@ -81,13 +83,13 @@ public class Window extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String value = "";
+				double[] value = new double[label.length+neuralSystem.getNeuralNetwork().getNbOutputs()];
 				for(int i = 0; i < label.length; i++) {
 				
 					if(label[i].getText() != "") {
 					
 						
-						value += label[i].getText() + "\t";
+						value[i] = Double.parseDouble(label[i].getText());
 						
 					}
 					else {
@@ -96,11 +98,7 @@ public class Window extends JFrame{
 					}
 				}
 				for(int i = 0; i < neuralSystem.getNeuralNetwork().getNbOutputs(); i++) {
-					value += "0";
-					
-					if(i != neuralSystem.getNeuralNetwork().getNbOutputs() -1) {
-						value += "\t";
-					}
+					value[i+label.length] = 0.0d;
 				}
 				neuralSystem.testInput(value);
 				autoMode = false;

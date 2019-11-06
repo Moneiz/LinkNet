@@ -1,7 +1,5 @@
 package org.piwel.linknet.mlp;
 
-import org.piwel.linknet.parser.CharParser;
-
 /**
  * 
  * @author Atomix
@@ -15,7 +13,6 @@ public class DataPoint {
 
 	private double[] inputs;
     private double[] outputs;
-    private String type;
     
     /**
      * 
@@ -40,18 +37,17 @@ public class DataPoint {
      * @param str Ligne en chaine de caractère des valeurs de l'exemple
      * @param outputNb Nombre de valeurs de sortie (masque de séparation I/O)
      */
-    public DataPoint(String str, int outputNb)
+    public DataPoint(double[] content, int outputNb)
     {
-        String[] content = str.split("\t");
         inputs = new double[content.length - outputNb];
         for(int i = 0; i < inputs.length; i++)
         {
-            inputs[i] = Double.parseDouble(content[i]);
+            inputs[i] = content[i];
         }
         outputs = new double[outputNb];
         for(int i = 0; i < outputNb; i++)
         {
-            outputs[i] = Double.parseDouble(content[content.length - outputNb + i]);
+            outputs[i] = content[content.length - outputNb + i];
         }
     }
    

@@ -1,10 +1,9 @@
 package org.piwel.linknet.data;
 
 
-import java.text.ParseException;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.piwel.linknet.mlp.DataCollection;
 import org.piwel.linknet.util.ParserUtil;
 
 public abstract class SimpleData {
@@ -13,7 +12,7 @@ public abstract class SimpleData {
 	public final int nbNeuronIn;
 	public final int nbNeuronOut;
 	public final int[] nbMiddleHiddenNeuron;
-	public String[] datapoints;
+	protected DataCollection datapoints;
 	
 	public SimpleData(JSONObject json) {
 		
@@ -27,7 +26,10 @@ public abstract class SimpleData {
 		}
 		this.nbNeuronIn = ParserUtil.objectToInt(json.get("nbIN"));
 		this.nbNeuronOut = ParserUtil.objectToInt(json.get("nbOUT"));
-		makeDataPoint();
+		makeDataPoint((JSONArray) json.get("datas"));
 	}
-	public abstract void makeDataPoint();
+	public abstract void makeDataPoint(JSONArray array);
+	public DataCollection getDatapoints() {
+		return datapoints;
+	}
 }

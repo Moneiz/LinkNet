@@ -1,13 +1,13 @@
 {
-	"name":"Xor Table",
-	"nbHN":[5],
+	"name":"Double Xor Table",
+	"nbHN":[2],
 	"nbIN":2,
-	"nbOUT":1,
+	"nbOUT":2,
 	"type":"binary",
 	"datas":[
-		{"in":[0,0], "out":[0]},
-		{"in":[1,0], "out":[1]},
-		{"in":[0,1], "out":[1]},
-		{"in":[1,1], "out":[0]}
+		{"in":[0,0], "out":[0,1]},
+		{"in":[1,0], "out":[1,0]},
+		{"in":[0,1], "out":[1,0]},
+		{"in":[1,1], "out":[0,1]}
 	]
 }

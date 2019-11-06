@@ -12,7 +12,6 @@ public class NeuralNetwork {
      private Neuron[] outputNeurons;
      private int nbInputs;
      private int nbHidden;
-     private int nbHiddenLayers; //Anticipation de LN-6
      private int nbOutputs;
 
      /**

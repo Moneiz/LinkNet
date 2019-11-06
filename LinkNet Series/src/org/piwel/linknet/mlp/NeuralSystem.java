@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 
 import org.piwel.linknet.graphic.Window;
 import org.piwel.linknet.parser.header.HeaderHandler;
-import org.piwel.linknet.parser.CharParser;
 import org.piwel.linknet.parser.header.HeaderEvaluationException;
 
 public class NeuralSystem implements Runnable {
@@ -71,20 +70,17 @@ public class NeuralSystem implements Runnable {
 	 * @param trainingRatio Le ratio d'entrainement 
 	 * @param ihm IHM à utiliser
 	 */
-	public NeuralSystem(int nbInputs, int nbHidden, int nbOutputs, String[] data, String[] head,  double trainingRatio, IHM ihm)
+	public NeuralSystem(int nbInputs, int[] nbHidden, int nbOutputs, DataCollection datapoints,  double trainingRatio)
 	{
+        IHM.info("Making Neural System...");
 		
-		this.ihm = ihm;
 		this.nbOutputs = nbOutputs;
 		
-		addHeaderFile(head);
-		if(headerHandler.getType().equals("char")) {
-			network = new NeuralNetwork(nbInputs*8, nbHidden, nbOutputs*8);
-			this.nbOutputs *= 8;
-		}else {
-			network = new NeuralNetwork(nbInputs, nbHidden, nbOutputs);
-		}
-		this.data = new DataCollection(data, nbOutputs, trainingRatio, headerHandler );
+		network = new NeuralNetwork(nbInputs, nbHidden[0], nbOutputs);
+
+		this.data = datapoints;
+		
+        IHM.info("Neural System done !");
 	}
 
 	/**
@@ -163,9 +159,6 @@ public class NeuralSystem implements Runnable {
 			while(true) {
 				for (DataPoint point : data.points())
 				{
-					double[] outputs = network.evaluate(point);
-					
-					
 					
 					if(win != null && !win.autoMode) {
 						return;
@@ -189,10 +182,10 @@ public class NeuralSystem implements Runnable {
 	 * @param value Ligne contenant les entrées (et sorties) de l'exemple
 	 */
 	
-	public void testInput(String value) {
+	public void testInput(double[] value) {
 
 
-		DataPoint point = new DataPoint(value, 0);
+		DataPoint point = new DataPoint(value, this.nbOutputs);
 
 
 		double[] outputs = network.evaluate(point);
@@ -215,7 +208,7 @@ public class NeuralSystem implements Runnable {
 
 
 
-		ihm.printMsg(msg);
+		IHM.info(msg);
 		
 
 
@@ -249,13 +242,10 @@ public class NeuralSystem implements Runnable {
 				{
 					msg += "Output " + header[header.length - nbOutputs + outNb] + "=" + error;
 				}
-
-
-				ihm.printMsg(msg);
+				IHM.info(msg);
 			}
 
 		}
-		ihm.printMsg("");
 	}
 	/**
 	 * 
@@ -282,6 +272,7 @@ public class NeuralSystem implements Runnable {
 	 * diminuer les erreurs au minimum
 	 * 
 	 */
+	@SuppressWarnings("deprecation")
 	public void run()
 	{
 		try {
@@ -332,7 +323,7 @@ public class NeuralSystem implements Runnable {
 					learningRate = learningRate / 2;
 				}
 				errorRate = Math.sqrt(totalError / data.points().length) * 100;
-				ihm.printMsg("Iteration n°" + i + " - Total error : " + totalError + " - Rate " + learningRate + " - Mean : " + new DecimalFormat("#.##").format(errorRate)  + " %");
+				IHM.info("Iteration n°" + i + " - Total error : " + totalError + " - Rate " + learningRate + " - Mean : " + new DecimalFormat("#.##").format(errorRate)  + " %");
 				i++;
 
 				if(i % 10 == 0) {

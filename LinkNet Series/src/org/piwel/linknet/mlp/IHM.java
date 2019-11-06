@@ -1,4 +1,7 @@
 package org.piwel.linknet.mlp;
+
+import java.util.Date;
+
 /**
  * 
  * @author Atomix
@@ -6,12 +9,15 @@ package org.piwel.linknet.mlp;
  *Cette interface permet de gérer les flux de sortie.
  *
  */
-public interface IHM {
+public class IHM {
 
 	/**
 	 * 
 	 * @param msg Chaine de caractère à afficher ou enregistrer
 	 */
-	void printMsg(String msg);
+	@SuppressWarnings("deprecation")
+	public static void info(String msg) {
+		System.out.println("["+(new Date()).toGMTString()+"] [INFO] - " + msg);
+	}
     
 }
