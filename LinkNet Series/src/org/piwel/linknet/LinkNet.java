@@ -1,7 +1,6 @@
 package org.piwel.linknet;
 
 import org.piwel.linknet.mlp.NeuralSystem;
-
 import org.piwel.linknet.util.DatasetFileProvider;
 import org.piwel.linknet.data.SimpleData;
 import org.piwel.linknet.graphic.Window;

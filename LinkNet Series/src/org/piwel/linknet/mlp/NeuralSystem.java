@@ -76,7 +76,7 @@ public class NeuralSystem implements Runnable {
 		
 		this.nbOutputs = nbOutputs;
 		
-		network = new NeuralNetwork(nbInputs, nbHidden[0], nbOutputs);
+		network = new NeuralNetwork(nbInputs, nbHidden, nbOutputs);
 
 		this.data = datapoints;
 		

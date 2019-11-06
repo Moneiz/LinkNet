@@ -187,7 +187,7 @@ public class Window extends JFrame{
 			
 			int x = (int) (width/(4));
 			int yI = (int) (height/(net.getNbInputs()+1));
-			int yH = (int) (height/(net.getNbHidden()+1));
+			int yH = (int) (height/(net.getNbHidden()[0]+1));
 			int yO = (int) (height/(net.getNbOutputs()+1));
 			
 			if(net.getNbInputs() >=8) {
@@ -216,8 +216,8 @@ public class Window extends JFrame{
 				g.drawString(value,x, yI*i -20);
 			}
 			
-			for(int i = 1; i <= net.getNbHidden(); i++) {
-				double output = net.getHiddenNeurons()[i-1].getOutput();
+			for(int i = 1; i <= net.getNbHidden()[0]; i++) {
+				double output = net.getHiddenNeurons()[0][i-1].getOutput();
 				
 				int isPositive = output >= 0 ? 1 : 0;
 				int isNegative = output <= 0 ? 1 : 0;
@@ -264,11 +264,11 @@ public class Window extends JFrame{
 			
 			
 			for(int i = 1; i <= net.getNbInputs();i++) {
-				for(int j = 1; j <=net.getNbHidden(); j++) {
+				for(int j = 1; j <=net.getNbHidden()[0]; j++) {
 					
 					
 					
-					g.setColor(getColorLink(net.getHiddenNeurons()[j-1].weight(i-1) * neuralSystem.getCurrentDataPoint().getInputs()[i-1]));
+					g.setColor(getColorLink(net.getHiddenNeurons()[0][j-1].weight(i-1) * neuralSystem.getCurrentDataPoint().getInputs()[i-1]));
 					
 					
 					g.drawLine(x+10, yI*i+10, x*2+10, yH*j+10);
@@ -276,12 +276,12 @@ public class Window extends JFrame{
 				}
 			}
 			
-			for(int i = 1; i <= net.getNbHidden();i++) {
+			for(int i = 1; i <= net.getNbHidden()[0];i++) {
 				for(int j = 1; j <=net.getNbOutputs(); j++) {
 					
 					
 					
-					g.setColor(getColorLink(net.getOutputNeurons()[j-1].weight(i-1) * net.getHiddenNeurons()[i-1].getOutput()));
+					g.setColor(getColorLink(net.getOutputNeurons()[j-1].weight(i-1) * net.getHiddenNeurons()[0][i-1].getOutput()));
 					
 					g.drawLine((x*2)+10, yH*i+10, x*3+10, yO*j+10);
 				}
