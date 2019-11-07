@@ -1,6 +1,6 @@
 {
 	"name":"Double Xor Table",
-	"nbHN":[2],
+	"nbHN":[3],
 	"nbIN":2,
 	"nbOUT":2,
 	"type":"binary",

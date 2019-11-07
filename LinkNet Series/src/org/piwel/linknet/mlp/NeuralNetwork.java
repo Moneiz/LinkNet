@@ -59,6 +59,7 @@ public class NeuralNetwork {
       */
      public double[] evaluate(DataPoint point)
      {
+    	 // Clean neuron value
     	 for(int layer = 0; layer < nbHidden.length;layer++) {
     		 for(Neuron n : hiddenNeurons[layer])
              {
@@ -70,21 +71,27 @@ public class NeuralNetwork {
              n.clear();
          }
 
+         // Hidden neurons
     	 double[][] hiddenOutputs = new double[nbHidden.length][];
          for(int layer = 0; layer < nbHidden.length;layer++) {
         	 hiddenOutputs[layer] = new double[nbHidden[layer]];
+        	 
              for(int i = 0; i < nbHidden[layer]; i++)
              {
-                 hiddenOutputs[layer][i] = hiddenNeurons[layer][i].evaluate(point);
+            	 if(layer == 0)
+            		 hiddenOutputs[layer][i] = hiddenNeurons[layer][i].evaluate(point);
+            	 else
+                     hiddenOutputs[layer][i] = hiddenNeurons[layer][i].evaluate(hiddenOutputs[layer-1]);
              }
          }
          
-
+         // Output neurons
          double[] outputs = new double[nbOutputs];
          for(int outputNb = 0; outputNb < nbOutputs; outputNb++)
          {
              outputs[outputNb] = outputNeurons[outputNb].evaluate(hiddenOutputs[nbHidden.length-1]);
          }
+         
          return outputs;
      }
      /**
@@ -97,6 +104,7 @@ public class NeuralNetwork {
       */
      public void adjustWeight(DataPoint point, double learningRate)
      {
+    	 // Output corrections
          double[] outputDeltas = new double[nbOutputs];
          for(int i = 0; i < nbOutputs; i++)
          {
@@ -105,17 +113,24 @@ public class NeuralNetwork {
              outputDeltas[i] = output * (1 - output) * (expectedOutput - output);
          }
 
+         // Hidden corrections
          double[][] hiddenDeltas = new double[nbHidden.length][];
-         for(int layer = 0; layer < nbHidden.length;layer++) {
+         for(int layer = nbHidden.length-1; layer >= 0;layer--) {
         	 hiddenDeltas[layer] = new double[nbHidden[layer]];
 	         for(int i = 0; i < nbHidden[layer]; i++)
 	         {
 	             double hiddenOutput = hiddenNeurons[layer][i].getOutput();
 	             double sum = 0.0;
-	             for(int j = 0; j < nbOutputs; j++)
-	             {
-	                 sum += outputDeltas[j] * outputNeurons[j].weight(i);
-	             }
+            	 if(layer == nbHidden.length-1) {
+		             for(int j = 0; j < nbOutputs; j++)
+		             {
+		            	 sum += outputDeltas[j] * outputNeurons[j].weight(i);
+		             }
+            	 }else {
+            		 for(int j = 0; j < nbHidden[layer];j++) {
+            			 sum += hiddenDeltas[layer][j] * hiddenNeurons[layer][j].weight(i);
+            		 }
+            	 }
 	             hiddenDeltas[layer][i] = hiddenOutput * (1 - hiddenOutput) * sum;
 	         }
          }
@@ -134,19 +149,30 @@ public class NeuralNetwork {
              outputNeuron.adjustWeight(nbHidden[nbHidden.length-1], value);
 
          }
-
-         for(int i = 0; i < nbHidden[nbHidden.length-1]; i++)
-         {
-             Neuron hiddenNeuron = hiddenNeurons[nbHidden.length-1][i];
-             for(int j = 0; j < nbInputs; j++)
+         for(int layer = nbHidden.length - 1; layer >= 0; layer--) {
+        	 for(int i = 0; i < nbHidden[layer]; i++)
              {
-                 value = hiddenNeuron.weight(j) + learningRate * hiddenDeltas[nbHidden.length-1][i] * point.getInputs()[j];
-                 hiddenNeuron.adjustWeight(j, value);
+                 Neuron hiddenNeuron = hiddenNeurons[layer][i];
+                 for(int j = 0; j < nbInputs; j++)
+                 {
+                	 if(layer == 0)
+                		 value = hiddenNeuron.weight(j) + learningRate * hiddenDeltas[layer][i] * point.getInputs()[j];
+                	 else {
+                		 value = hiddenNeuron.weight(j) + learningRate * hiddenDeltas[layer][i] * hiddenNeurons[layer-1][j].getOutput();
+                	 }
+                	 hiddenNeuron.adjustWeight(j, value);
+                 }
+                 if(layer==0) {
+                	 value = hiddenNeuron.weight(nbInputs) + learningRate * hiddenDeltas[layer][i] * 1.0;
+                	 hiddenNeuron.adjustWeight(nbInputs, value);
+                 }else { 
+                	 value = hiddenNeuron.weight(nbHidden[layer-1]) + learningRate * hiddenDeltas[layer][i] * 1.0;
+                	 hiddenNeuron.adjustWeight(nbHidden[layer-1], value);
+                 }
+                	
              }
-
-             value = hiddenNeuron.weight(nbInputs) + learningRate * hiddenDeltas[nbHidden.length-1][i] * 1.0;
-             hiddenNeuron.adjustWeight(nbInputs, value);
          }
+         
      }
     /**
      *  
