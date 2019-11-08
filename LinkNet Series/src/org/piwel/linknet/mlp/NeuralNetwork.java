@@ -127,8 +127,8 @@ public class NeuralNetwork {
 		            	 sum += outputDeltas[j] * outputNeurons[j].weight(i);
 		             }
             	 }else {
-            		 for(int j = 0; j < nbHidden[layer];j++) {
-            			 sum += hiddenDeltas[layer][j] * hiddenNeurons[layer][j].weight(i);
+            		 for(int j = 0; j < nbHidden[layer+1];j++) {
+            			 sum += hiddenDeltas[layer+1][j] * hiddenNeurons[layer+1][j].weight(i);
             		 }
             	 }
 	             hiddenDeltas[layer][i] = hiddenOutput * (1 - hiddenOutput) * sum;
