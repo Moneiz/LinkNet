@@ -1,13 +1,17 @@
 {
-	"name":"Double Xor Table",
-	"nbHN":[3,5],
-	"nbIN":2,
-	"nbOUT":2,
-	"type":"binary",
+	"name":"Test char Table",
+	"nbHN":[22],
+	"nbIN":1,
+	"nbOUT":1,
+	"type":"char",
 	"datas":[
-		{"in":[0,0], "out":[0,1]},
-		{"in":[1,0], "out":[1,0]},
-		{"in":[0,1], "out":[1,0]},
-		{"in":[1,1], "out":[0,1]}
+		{"in":["a"], "out":["b"]},
+		{"in":["b"], "out":["c"]},
+		{"in":["c"], "out":["d"]},
+		{"in":["d"], "out":["e"]},
+		{"in":["e"], "out":["f"]},
+		{"in":["f"], "out":["g"]},
+		{"in":["g"], "out":["h"]},
+		{"in":["h"], "out":["i"]},
 	]
 }

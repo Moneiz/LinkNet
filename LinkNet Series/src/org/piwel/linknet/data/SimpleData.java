@@ -9,8 +9,8 @@ import org.piwel.linknet.util.ParserUtil;
 public abstract class SimpleData {
 
 	public final String name;
-	public final int nbNeuronIn;
-	public final int nbNeuronOut;
+	public int nbNeuronIn;
+	public int nbNeuronOut;
 	public final int[] nbMiddleHiddenNeuron;
 	protected DataCollection datapoints;
 	
