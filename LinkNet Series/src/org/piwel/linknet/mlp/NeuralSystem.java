@@ -23,7 +23,7 @@ public class NeuralSystem implements Runnable {
 
 	int nbOutputs;
 
-	double learningRate = 1.3;
+	double learningRate = 1.5;
 	double maxError = 0.005;
 	int maxIterations = 10001;
 	double errorRate = Double.POSITIVE_INFINITY;

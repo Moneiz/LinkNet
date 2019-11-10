@@ -1,6 +1,6 @@
 {
 	"name":"Test char Table",
-	"nbHN":[22],
+	"nbHN":[5],
 	"nbIN":1,
 	"nbOUT":1,
 	"type":"char",
@@ -12,6 +12,6 @@
 		{"in":["e"], "out":["f"]},
 		{"in":["f"], "out":["g"]},
 		{"in":["g"], "out":["h"]},
-		{"in":["h"], "out":["i"]},
+		{"in":["h"], "out":["i"]}
 	]
 }

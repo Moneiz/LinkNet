@@ -8,7 +8,7 @@ import org.piwel.linknet.mlp.IHM;
 
 public class LinkNet{
 
-	private final String version = "alpha-1.0";
+	private final String version = "alpha-2.0";
 	private static String filename;
 	Window win;
 	
