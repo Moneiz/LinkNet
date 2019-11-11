@@ -3,6 +3,7 @@ package org.piwel.linknet;
 import org.piwel.linknet.mlp.NeuralSystem;
 import org.piwel.linknet.util.DatasetFileProvider;
 import org.piwel.linknet.data.SimpleData;
+import org.piwel.linknet.data.image.BMPFormatter;
 import org.piwel.linknet.graphic.Window;
 import org.piwel.linknet.mlp.IHM;
 
@@ -21,8 +22,11 @@ public class LinkNet{
 	public static void main(String[] args) {
 		
 		filename = args[0];
-		LinkNet linkNet = new LinkNet();
-        linkNet.run();
+		
+		BMPFormatter format = new BMPFormatter("datasets/test.bmp");
+		
+		//LinkNet linkNet = new LinkNet();
+        //linkNet.run();
        
 	}
 
