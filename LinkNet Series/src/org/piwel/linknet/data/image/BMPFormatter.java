@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.lwjgl.opengl.PixelFormat;
 import org.piwel.linknet.data.util.LittleEndianDataInputStream;
 
 public class BMPFormatter {
@@ -23,7 +24,7 @@ public class BMPFormatter {
 	private int numberColor;
 	private int impColor;
 	
-	private double[] imagesPixels;
+	private byte[] imagesPixels;
 	
 	public BMPFormatter(String path) {
 		try {
@@ -31,6 +32,7 @@ public class BMPFormatter {
 					new BufferedInputStream(
 					new FileInputStream(path)));
 			boolean eof = false;
+			dataInput.mark(0);
 			dataInput.skipBytes(2);					// BM
 			fileSize = dataInput.readLittleInt();	// File size
 			dataInput.skipBytes(4);					// Reserved values
@@ -46,7 +48,8 @@ public class BMPFormatter {
 			numberColor = dataInput.readLittleInt();// Number of color
 			impColor = dataInput.readLittleInt();	// Important colors number
 			
-		
+			loadPixel(dataInput);
+			
 			dataInput.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -54,5 +57,20 @@ public class BMPFormatter {
 			e.printStackTrace();
 		}
 		
+	}
+	public void loadPixel(LittleEndianDataInputStream a) {
+		
+		imagesPixels = new byte[width * height * bitPerPixel * 3];
+		
+		try {
+			a.reset();
+			a.skipBytes(offsetBMP);
+			int i = 0;
+			while(true) {
+				imagesPixels[i++] = a.readByte();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

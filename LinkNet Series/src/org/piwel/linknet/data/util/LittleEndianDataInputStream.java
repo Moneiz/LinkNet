@@ -108,4 +108,10 @@ public class LittleEndianDataInputStream extends InputStream implements DataInpu
 		dataInStream.readFully(byteBuffer, 0, 2);
 		return (short)((byteBuffer[1] & 0xff) << 8 | (byteBuffer[0] & 0xff));
 	}
+	public synchronized void reset() throws IOException {
+		dataInStream.reset();
+	}
+	public synchronized void mark(int readlimit) {
+		dataInStream.mark(readlimit);
+	}
 }
