@@ -24,7 +24,7 @@ public class BMPFormatter {
 	private int numberColor;
 	private int impColor;
 	
-	private byte[] imagesPixels;
+	public byte[] imagesPixels;
 	
 	public BMPFormatter(String path) {
 		try {
@@ -70,7 +70,6 @@ public class BMPFormatter {
 				imagesPixels[i++] = a.readByte();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 }

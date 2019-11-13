@@ -12,5 +12,6 @@ public class DataType {
 	public static void initType() {
 		TYPE.put("binary", BinaryData.class);
 		TYPE.put("char", CharData.class);
+		TYPE.put("image", ImageData.class);
 	}
 }

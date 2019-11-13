@@ -1,0 +1,10 @@
+{
+	"name":"Image Test",
+	"nbHN":[5],
+	"nbIN":0,
+	"nbOUT":1,
+	"type":"image",
+	"datas":[
+		{"in":["datasets/test.bmp"], "out":["b"]}
+	]
+}

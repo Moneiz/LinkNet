@@ -23,10 +23,10 @@ public class LinkNet{
 		
 		filename = args[0];
 		
-		BMPFormatter format = new BMPFormatter("datasets/test.bmp");
+		//BMPFormatter format = new BMPFormatter("datasets/test.bmp");
 		
-		//LinkNet linkNet = new LinkNet();
-        //linkNet.run();
+		LinkNet linkNet = new LinkNet();
+        linkNet.run();
        
 	}
 
@@ -40,12 +40,12 @@ public class LinkNet{
         NeuralSystem system = new NeuralSystem(datas.nbNeuronIn,datas.nbMiddleHiddenNeuron,datas.nbNeuronOut , datas.getDatapoints(), 1);
 
         
-        win = new Window("Stratos Graphic");
-        win.linkToMLP(system);
+        //win = new Window("Stratos Graphic");
+        //win.linkToMLP(system);
 
-        win.setVisible(true);
+        //win.setVisible(true);
         
-        system.addWindow(win);
+        //system.addWindow(win);
         system.run();
 
     }
