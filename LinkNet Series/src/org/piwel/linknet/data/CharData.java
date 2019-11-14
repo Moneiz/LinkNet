@@ -17,8 +17,7 @@ public class CharData extends SimpleData {
 
 	@Override
 	public void makeDataPoint(JSONArray json) {
-		IHM.info("Entrance MakeDataPoint of " + name + " of type char");
-		
+
 		double[][] content = new double[json.size()][nbNeuronIn*8+nbNeuronOut*8];
 		for(int i = 0; i < json.size();i++) {
 			JSONObject o = (JSONObject) json.get(i);
@@ -44,7 +43,6 @@ public class CharData extends SimpleData {
 		}
 		datapoints = new DataCollection(content, nbNeuronOut*8, 1.0f);
 		
-		IHM.info("Exit MakeDataPoint of " + name + " of type char");
 	}
 
 	public double[] charToArrayDouble(char a) {

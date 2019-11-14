@@ -74,13 +74,15 @@ public class NeuralSystem implements Runnable {
 	{
         IHM.info("Making Neural System...");
 		
+        long time = System.currentTimeMillis();
+        
 		this.nbOutputs = nbOutputs;
 		
 		network = new NeuralNetwork(nbInputs, nbHidden, nbOutputs);
 
 		this.data = datapoints;
 		
-        IHM.info("Neural System done !");
+        IHM.info("Neural System done in "+ (int) (System.currentTimeMillis() - time) +" ms !");
 	}
 
 	/**
@@ -285,6 +287,7 @@ public class NeuralSystem implements Runnable {
 
 			while(i < this.maxIterations && totalError > maxError && betterGeneralisation)
 			{
+				long time = System.nanoTime();
 				oldError = totalError;
 				totalError = 0;
 				oldGeneratlisationError = totalGeneralisationError;
@@ -323,7 +326,7 @@ public class NeuralSystem implements Runnable {
 					learningRate = learningRate / 2;
 				}
 				errorRate = Math.sqrt(totalError / data.points().length) * 100;
-				IHM.info("Iteration n°" + i + " - Total error : " + totalError + " - Rate " + learningRate + " - Mean : " + new DecimalFormat("#.##").format(errorRate)  + " %");
+				IHM.info("Iteration n°" + i + " - In "+(int)(System.nanoTime()-time)+" ms - Rate " + learningRate + " - Mean : " + new DecimalFormat("#.##").format(errorRate)  + " %");
 				i++;
 
 				if(i % 10 == 0) {
