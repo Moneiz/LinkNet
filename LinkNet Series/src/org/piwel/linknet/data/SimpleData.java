@@ -4,6 +4,7 @@ package org.piwel.linknet.data;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.piwel.linknet.mlp.DataCollection;
+import org.piwel.linknet.mlp.IHM;
 import org.piwel.linknet.util.ParserUtil;
 
 public abstract class SimpleData {
@@ -26,7 +27,11 @@ public abstract class SimpleData {
 		}
 		this.nbNeuronIn = ParserUtil.objectToInt(json.get("nbIN"));
 		this.nbNeuronOut = ParserUtil.objectToInt(json.get("nbOUT"));
+		
+		long time = System.currentTimeMillis();
+		IHM.info("Entrance MakeDataPoint of " + name + " of type "+this.getClass());
 		makeDataPoint((JSONArray) json.get("datas"));
+		IHM.info("Exit MakeDataPoint in "+ (int) (System.currentTimeMillis()-time) + " ms");
 	}
 	public abstract void makeDataPoint(JSONArray array);
 	public DataCollection getDatapoints() {

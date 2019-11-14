@@ -13,7 +13,6 @@ public class BinaryData extends SimpleData{
 	}
 
 	public void makeDataPoint(JSONArray json) {
-		IHM.info("Entrance MakeDataPoint of " + name + " of type binary");
 		
 		double[][] content = new double[json.size()][nbNeuronIn+nbNeuronOut];
 		for(int i = 0; i < json.size();i++) {
@@ -29,8 +28,6 @@ public class BinaryData extends SimpleData{
 			}
 		}
 		datapoints = new DataCollection(content, nbNeuronOut, 1.0f);
-		
-		IHM.info("Exit MakeDataPoint of " + name + " of type binary");
 	}
 
 }
