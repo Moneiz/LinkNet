@@ -332,15 +332,14 @@ public class NeuralSystem implements Runnable {
 				if(i % 10 == 0) {
 					if(win != null)
 						win.reDraw();
-					//test(true);
-					//canContinue = false;
 				}
-				Thread.sleep(1);
 			}
 			
 			isRunning = false;
 
-		}catch(InterruptedException ex) {}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 }
 

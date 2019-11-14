@@ -1,13 +1,13 @@
 {
 	"name":"Image Test",
-	"nbHN":[16],
+	"nbHN":[32,16,16,8],
 	"nbIN":0,
 	"nbOUT":1,
 	"type":"image",
 	"datas":[
-		{"in":["datasets/test/1.bmp"], "out":["0"]},
-		{"in":["datasets/test/2.bmp"], "out":["0"]},
-		{"in":["datasets/test/3.bmp"], "out":["0"]},
+		{"in":["datasets/test/1.bmp"], "out":["o"]},
+		{"in":["datasets/test/2.bmp"], "out":["o"]},
+		{"in":["datasets/test/3.bmp"], "out":["o"]},
 		{"in":["datasets/test/4.bmp"], "out":["x"]},
 		{"in":["datasets/test/5.bmp"], "out":["x"]},
 		{"in":["datasets/test/6.bmp"], "out":["x"]}

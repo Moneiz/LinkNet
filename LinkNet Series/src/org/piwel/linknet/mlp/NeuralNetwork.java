@@ -153,15 +153,21 @@ public class NeuralNetwork {
         	 for(int i = 0; i < nbHidden[layer]; i++)
              {
                  Neuron hiddenNeuron = hiddenNeurons[layer][i];
-                 for(int j = 0; j < nbInputs; j++)
-                 {
-                	 if(layer == 0)
-                		 value = hiddenNeuron.weight(j) + learningRate * hiddenDeltas[layer][i] * point.getInputs()[j];
-                	 else {
-                		 value = hiddenNeuron.weight(j) + learningRate * hiddenDeltas[layer][i] * hiddenNeurons[layer-1][j].getOutput();
-                	 }
-                	 hiddenNeuron.adjustWeight(j, value);
-                 }
+                 
+                	 if(layer == 0) {
+                		 for(int j = 0; j < nbInputs; j++)
+                         {
+                			 value = hiddenNeuron.weight(j) + learningRate * hiddenDeltas[layer][i] * point.getInputs()[j];
+                			 hiddenNeuron.adjustWeight(j, value);
+                         }
+                	 }else {
+                    	 for(int j = 0; j < nbHidden[layer-1]; j++)
+                         {
+                    		 value = hiddenNeuron.weight(j) + learningRate * hiddenDeltas[layer][i] * hiddenNeurons[layer-1][j].getOutput();
+                    		 hiddenNeuron.adjustWeight(j, value);
+                         }
+                     }
+                	 
                  if(layer==0) {
                 	 value = hiddenNeuron.weight(nbInputs) + learningRate * hiddenDeltas[layer][i] * 1.0;
                 	 hiddenNeuron.adjustWeight(nbInputs, value);
