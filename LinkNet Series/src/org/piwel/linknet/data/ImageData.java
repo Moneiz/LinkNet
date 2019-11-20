@@ -11,7 +11,7 @@ public class ImageData extends SimpleData {
 	public ImageData(JSONObject json) {
 		super(json);
 		nbNeuronIn *= 8;
-		nbNeuronOut *= 8;
+		nbNeuronOut = 8;
 		
 	}
 
@@ -26,13 +26,14 @@ public class ImageData extends SimpleData {
 		String link = in.get(0).toString();
 		
 		BMPFormatter img = new BMPFormatter(link);
-		
+		nbNeuronIn = img.imagesPixels.length;
 		double[][] content = new double[json.size()][img.imagesPixels.length * 8 + nbNeuronOut*8];
 		for(int i = 0; i < json.size();i++) {
 			o = (JSONObject) json.get(i);
 			in = (JSONArray) o.get("in");
 			out = (JSONArray) o.get("out");
 			
+			link = in.get(0).toString();
 			img = new BMPFormatter(link);
 			
 			char a;
@@ -45,15 +46,19 @@ public class ImageData extends SimpleData {
 					content[i][j*8+k] = bitsChar[k];
 				}
 			}
+			/*
+			a = out.get(0).toString().charAt(0);
+			content[i][nbNeuronIn*8] = a == 'o' ? 1.0f : 0.0f;
+			content[i][nbNeuronIn*8+1] = a=='x' ? 1.0f : 0.0f;
+			*/
 			for(int j = 0; j < nbNeuronOut;j++) {
 				a = out.get(j).toString().charAt(0);
 				double[] bitsChar = charToArrayDouble(a);
 				for(int k = 0; k < 8; k++) {
-					content[i][j+k+nbNeuronIn*8] = bitsChar[k];
+					content[i][j*8+k+nbNeuronIn*8] = bitsChar[k];
 				}
 			}
 		}
-		nbNeuronIn = img.imagesPixels.length;
 		datapoints = new DataCollection(content, nbNeuronOut*8, 1.0f);
 		
 		IHM.info("Exit MakeDataPoint of " + name + " of type IMAGE");
