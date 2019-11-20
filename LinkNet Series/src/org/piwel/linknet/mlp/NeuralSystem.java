@@ -23,7 +23,7 @@ public class NeuralSystem implements Runnable {
 
 	int nbOutputs;
 
-	double learningRate = 1.5;
+	double learningRate = 1f;
 	double maxError = 0.005;
 	int maxIterations = 10001;
 	double errorRate = Double.POSITIVE_INFINITY;
@@ -334,8 +334,11 @@ public class NeuralSystem implements Runnable {
 						win.reDraw();
 				}
 			}
+			Thread.sleep(10);
 			
 			isRunning = false;
+			
+			IHM.info("Test image 1 " + network.getOutputNeurons()[0].getOutput() + " - " + network.getOutputNeurons()[1].getOutput());
 
 		}catch(Exception ex) {
 			ex.printStackTrace();

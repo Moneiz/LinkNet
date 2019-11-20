@@ -11,7 +11,7 @@ public class ImageData extends SimpleData {
 	public ImageData(JSONObject json) {
 		super(json);
 		nbNeuronIn *= 8;
-		nbNeuronOut = 2;
+		nbNeuronOut = 8;
 		
 	}
 
@@ -33,6 +33,7 @@ public class ImageData extends SimpleData {
 			in = (JSONArray) o.get("in");
 			out = (JSONArray) o.get("out");
 			
+			link = in.get(0).toString();
 			img = new BMPFormatter(link);
 			
 			char a;
@@ -45,17 +46,18 @@ public class ImageData extends SimpleData {
 					content[i][j*8+k] = bitsChar[k];
 				}
 			}
+			/*
 			a = out.get(0).toString().charAt(0);
 			content[i][nbNeuronIn*8] = a == 'o' ? 1.0f : 0.0f;
-			content[i][nbNeuronIn*8+1] = a=='x' ? 0.0f : 1.0f;
-			/*
+			content[i][nbNeuronIn*8+1] = a=='x' ? 1.0f : 0.0f;
+			*/
 			for(int j = 0; j < nbNeuronOut;j++) {
 				a = out.get(j).toString().charAt(0);
 				double[] bitsChar = charToArrayDouble(a);
 				for(int k = 0; k < 8; k++) {
 					content[i][j*8+k+nbNeuronIn*8] = bitsChar[k];
 				}
-			}*/
+			}
 		}
 		datapoints = new DataCollection(content, nbNeuronOut*8, 1.0f);
 		
