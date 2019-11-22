@@ -1,12 +1,15 @@
 package org.piwel.linknet.mlp;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Atomix
  *
  */
-public class NeuralNetwork {
+public class NeuralNetwork implements Serializable {
 
+	private static final long serialVersionUID = -7567571565157L;
 	
 	 private Neuron[][] hiddenNeurons;
      private Neuron[] outputNeurons;

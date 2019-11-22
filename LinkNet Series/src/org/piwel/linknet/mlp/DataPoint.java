@@ -1,5 +1,7 @@
 package org.piwel.linknet.mlp;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Atomix
@@ -9,8 +11,10 @@ package org.piwel.linknet.mlp;
  * 
  *
  */
-public class DataPoint {
+public class DataPoint implements Serializable {
 
+	private static final long serialVersionUID = -7567571565157L;
+	
 	private double[] inputs;
     private double[] outputs;
     

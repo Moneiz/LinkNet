@@ -1,5 +1,6 @@
 package org.piwel.linknet.mlp;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -9,7 +10,9 @@ import java.util.Random;
  * @author Atomix
  *
  */
-public class Neuron {
+public class Neuron implements Serializable{
+	private static final long serialVersionUID = -7567571565157L;
+	
 	 private double[] weights;
      private int nbInputs;
 

@@ -28,15 +28,17 @@ public class Window extends JFrame{
 
 	private DrawPanel panel;
 	private NeuralSystem neuralSystem; 
-	private int width=1280, height=720;
+	private int width, height;
 	private String model;
 	private JButton buttonContinue;
 	private JTextField[] label;
 	public boolean autoMode=true;
 	public String type;
 	
-	public Window(String model) {
+	public Window(String model, Setting s) {
 		this.model = model;
+		this.width = s.width;
+		this.height = s.height;
 		this.type = "bit";
 		setTitle(model);
 		setSize(width, height);
@@ -51,7 +53,7 @@ public class Window extends JFrame{
 			@Override
 			public void componentResized(ComponentEvent e) {
 				// TODO Auto-generated method stub
-				repositionize();
+				//repositionize();
 			}
 
 			@Override
@@ -75,7 +77,7 @@ public class Window extends JFrame{
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
+		/*
 		buttonContinue = new JButton("Continue !");
 
 		buttonContinue.addActionListener(new ActionListener() {
@@ -108,11 +110,12 @@ public class Window extends JFrame{
 			}
 		});
 		
-		add(panel);
+		
 		buttonContinue.setLocation(0,0);
 		buttonContinue.setSize(100, 20);
 		panel.add(buttonContinue);
-
+		*/
+		add(panel);
 	}
 	public void reDraw() {
 		try {
@@ -121,14 +124,14 @@ public class Window extends JFrame{
 			validate();
 			repaint();
 		}catch(NullPointerException ex) {
-			
+			ex.printStackTrace();
 		}
 		
 		
 		
 		
 		
-		repositionize();
+		//repositionize();
 		
 	}
 	
@@ -136,7 +139,7 @@ public class Window extends JFrame{
 	
 	public void linkToMLP(NeuralSystem neuralSystem) {
 		this.neuralSystem = neuralSystem;
-		addLabel(neuralSystem);
+		//addLabel(neuralSystem);
 	}
 	
 	private void repositionize() {
@@ -186,24 +189,17 @@ public class Window extends JFrame{
 			NeuralNetwork net = neuralSystem.getNeuralNetwork();	
 			
 			int x = (int) (width/(4));
-			int yI = (int) (height/(net.getNbInputs()+1));
-			int yH = (int) (height/(net.getNbHidden()[0]+1));
+			int yI = (int) (height/(net.getNbHidden()[0]+1));
+			int yH = (int) (height/(net.getNbHidden()[1]+1));
 			int yO = (int) (height/(net.getNbOutputs()+1));
 			
 			if(net.getNbInputs() >=8) {
 				//return;
 			}
 			
-			for(int i = 1; i <= net.getNbInputs(); i++) {
-				
-				DataPoint c = neuralSystem.getCurrentDataPoint();
-				double output;
-				//try {
-					output = c.getInputs()[i-1];
-				//}catch(NullPointerException ex) {
-				//	DataPoint[] points = neuralSystem.getDataCollection().points();
-				//	output = points[points.length -1 ].getInputs()[i-1];
-				//}
+			for(int i = 1; i <= net.getNbHidden()[0]; i++) {
+
+				double output = net.getHiddenNeurons()[0][i-1].getOutput();
 				
 				int isPositive = output >= 0 ? 1 : 0;
 				int isNegative = output <= 0 ? 1 : 0;
@@ -216,8 +212,8 @@ public class Window extends JFrame{
 				g.drawString(value,x, yI*i -20);
 			}
 			
-			for(int i = 1; i <= net.getNbHidden()[0]; i++) {
-				double output = net.getHiddenNeurons()[0][i-1].getOutput();
+			for(int i = 1; i <= net.getNbHidden()[1]; i++) {
+				double output = net.getHiddenNeurons()[1][i-1].getOutput();
 				
 				int isPositive = output >= 0 ? 1 : 0;
 				int isNegative = output <= 0 ? 1 : 0;
@@ -245,43 +241,24 @@ public class Window extends JFrame{
 					g.drawString(value,x*3, yO*i -20);
 				}
 			}
-			else if(type.equals("char")){
-				double[] bits = new double[8];
-				String output;
-				for(int i = 7; i>= 0; i++) {
-					bits[i] = (int)net.getOutputNeurons()[i].getOutput();
-				}
-				output = new CharParser(null, bits).unconvert();
-					
-				g.setColor(new Color(255,255,255));
-					
-					
-				g.fillOval(x*3, yO, 20, 20);
-				String value = output;
-				g.drawString(value,x*3, yO -20);
-				
-			}
 			
 			
-			for(int i = 1; i <= net.getNbInputs();i++) {
-				for(int j = 1; j <=net.getNbHidden()[0]; j++) {
+			for(int i = 1; i <= net.getNbHidden()[0];i++) {
+				for(int j = 1; j <=net.getNbHidden()[1]; j++) {
 					
-					
-					
-					g.setColor(getColorLink(net.getHiddenNeurons()[0][j-1].weight(i-1) * neuralSystem.getCurrentDataPoint().getInputs()[i-1]));
-					
+					g.setColor(getColorLink(net.getHiddenNeurons()[1][j-1].weight(i-1) * net.getHiddenNeurons()[0][i-1].getOutput()));
 					
 					g.drawLine(x+10, yI*i+10, x*2+10, yH*j+10);
 					
 				}
 			}
 			
-			for(int i = 1; i <= net.getNbHidden()[0];i++) {
+			for(int i = 1; i <= net.getNbHidden()[1];i++) {
 				for(int j = 1; j <=net.getNbOutputs(); j++) {
 					
 					
 					
-					g.setColor(getColorLink(net.getOutputNeurons()[j-1].weight(i-1) * net.getHiddenNeurons()[0][i-1].getOutput()));
+					g.setColor(getColorLink(net.getOutputNeurons()[j-1].weight(i-1) * net.getHiddenNeurons()[1][i-1].getOutput()));
 					
 					g.drawLine((x*2)+10, yH*i+10, x*3+10, yO*j+10);
 				}

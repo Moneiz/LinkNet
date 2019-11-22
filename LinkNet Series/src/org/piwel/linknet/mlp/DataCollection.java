@@ -1,5 +1,6 @@
 package org.piwel.linknet.mlp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,8 +14,10 @@ import java.util.Random;
  * 
  *
  */
-public class DataCollection {
+public class DataCollection implements Serializable{
 
+	private static final long serialVersionUID = -7567571565157L;
+	
 	private DataPoint[] trainingPoints;
     private DataPoint[] generalisationPoints;
 

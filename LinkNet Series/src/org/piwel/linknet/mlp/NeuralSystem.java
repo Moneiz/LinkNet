@@ -1,19 +1,24 @@
 package org.piwel.linknet.mlp;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
+import org.piwel.linknet.graphic.Setting;
 import org.piwel.linknet.graphic.Window;
 import org.piwel.linknet.parser.header.HeaderHandler;
 import org.piwel.linknet.parser.header.HeaderEvaluationException;
 
-public class NeuralSystem implements Runnable {
+public class NeuralSystem implements Runnable, Serializable {
 
+	private static final long serialVersionUID = -7567571565157L;
+	
 	DataCollection data;
 	DataPoint currentDataPoint;
 
 	NeuralNetwork network;
 	String[] header;
-	HeaderHandler headerHandler;
 	IHM ihm;
 
 	public boolean isRunning = true;
@@ -128,14 +133,14 @@ public class NeuralSystem implements Runnable {
 	 */
 	
 	public void addHeaderFile(String[] head)
-	{
+	{	/*
 		header = head;
 		try {
 			headerHandler = new HeaderHandler(head);
 		} catch (HeaderEvaluationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
 	/**
@@ -249,6 +254,22 @@ public class NeuralSystem implements Runnable {
 
 		}
 	}
+	
+	public static final void writeSettings(NeuralSystem s) {
+
+		FileOutputStream fout;
+		try {
+			fout = new FileOutputStream("saveState");
+			ObjectOutputStream oos = new ObjectOutputStream(fout);
+			oos.writeObject(s);
+			IHM.info("Wrote settings file successfully");
+			fout.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 
 	 * Arrondie la valeur en paramètre

@@ -1,6 +1,6 @@
 {
 	"name":"Test char Table",
-	"nbHN":[5],
+	"nbHN":[4,4],
 	"nbIN":1,
 	"nbOUT":1,
 	"type":"char",
