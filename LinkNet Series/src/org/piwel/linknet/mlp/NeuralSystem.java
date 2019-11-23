@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 
 import org.piwel.linknet.graphic.Setting;
-import org.piwel.linknet.graphic.Window;
 import org.piwel.linknet.parser.header.HeaderHandler;
 import org.piwel.linknet.parser.header.HeaderEvaluationException;
 
@@ -23,8 +22,6 @@ public class NeuralSystem implements Runnable, Serializable {
 
 	public boolean isRunning = true;
 	public int i;
-
-	Window win;
 
 	int nbOutputs;
 
@@ -145,17 +142,6 @@ public class NeuralSystem implements Runnable, Serializable {
 	
 	/**
 	 * 
-	 * Lie une interface Window au système neural (facultatif)
-	 * 
-	 * @param win Interface Window
-	 */
-	
-	public void addWindow(Window win) {
-		this.win = win;
-	}
-	
-	/**
-	 * 
 	 * Change toutes les secondes l'exemple à tester. Tout le système neural sera actualisé mais l'apprentissage 
 	 * est empêché pour éviter la généralisation.
 	 * 
@@ -166,14 +152,7 @@ public class NeuralSystem implements Runnable, Serializable {
 			while(true) {
 				for (DataPoint point : data.points())
 				{
-					
-					if(win != null && !win.autoMode) {
-						return;
-					}
 					currentDataPoint = point;
-					if(win != null) {
-						win.reDraw();
-					}
 					
 					Thread.sleep(1000);
 					
@@ -254,7 +233,7 @@ public class NeuralSystem implements Runnable, Serializable {
 
 		}
 	}
-	
+	@Deprecated
 	public static final void writeSettings(NeuralSystem s) {
 
 		FileOutputStream fout;
@@ -350,16 +329,12 @@ public class NeuralSystem implements Runnable, Serializable {
 				IHM.info("Iteration n°" + i + " - In "+(int)(System.nanoTime()-time)+" ms - Rate " + learningRate + " - Mean : " + new DecimalFormat("#.##").format(errorRate)  + " %");
 				i++;
 
-				if(i % 10 == 0) {
-					if(win != null)
-						win.reDraw();
-				}
 			}
 			Thread.sleep(10);
 			
 			isRunning = false;
 			
-			IHM.info("Test image 1 " + network.getOutputNeurons()[0].getOutput() + " - " + network.getOutputNeurons()[1].getOutput());
+			//IHM.info("Test image 1 " + network.getOutputNeurons()[0].getOutput() + " - " + network.getOutputNeurons()[1].getOutput());
 
 		}catch(Exception ex) {
 			ex.printStackTrace();

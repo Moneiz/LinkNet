@@ -14,8 +14,8 @@ public class DatasetFileProvider {
 	private final String path;
 	private final SimpleData datas;
 	public DatasetFileProvider(String path) {
-		this.path = path;
-		this.datas = readJson(path);
+		this.path = "datasets/"+path;
+		this.datas = readJson(this.path);
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private SimpleData readJson(String path) {

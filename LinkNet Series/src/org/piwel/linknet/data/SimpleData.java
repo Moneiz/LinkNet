@@ -13,12 +13,14 @@ public abstract class SimpleData {
 	public int nbNeuronIn;
 	public int nbNeuronOut;
 	public final int[] nbMiddleHiddenNeuron;
+	public final JSONObject json;
 	protected DataCollection datapoints;
 	
 	public SimpleData(JSONObject json) {
 		
 		this.name = json.get("name").toString();
 		
+		this.json = json;
 		
 		JSONArray array = (JSONArray) json.get("nbHN");
 		this.nbMiddleHiddenNeuron = new int[array.size()];

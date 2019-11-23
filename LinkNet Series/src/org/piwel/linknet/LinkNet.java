@@ -2,17 +2,26 @@ package org.piwel.linknet;
 
 import org.piwel.linknet.mlp.NeuralSystem;
 import org.piwel.linknet.util.DatasetFileProvider;
+import org.piwel.linknet.util.RequestPOST;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.print.DocFlavor.STRING;
+
 import org.piwel.linknet.data.SimpleData;
 import org.piwel.linknet.data.image.BMPFormatter;
 import org.piwel.linknet.graphic.Setting;
-import org.piwel.linknet.graphic.Window;
+import org.piwel.linknet.graphic.UIManager;
 import org.piwel.linknet.mlp.IHM;
 
 public class LinkNet{
 
 	private final String version = "alpha-3.0";
 	private static String filename;
-	Window win;
 	
 	//L'appel du programme
 	
@@ -23,8 +32,6 @@ public class LinkNet{
 	public static void main(String[] args) {
 		
 		filename = args[0];
-		
-		//BMPFormatter format = new BMPFormatter("datasets/test.bmp");
 		
 		LinkNet linkNet = new LinkNet();
         linkNet.run();
@@ -41,14 +48,10 @@ public class LinkNet{
         NeuralSystem system = new NeuralSystem(datas.nbNeuronIn,datas.nbMiddleHiddenNeuron,datas.nbNeuronOut , datas.getDatapoints(), 1);
 
         Setting s = Setting.readSettings();
-        win = new Window("Stratos Graphic",s);
-        win.linkToMLP(system);
-
-        win.setVisible(true);
         
-        system.addWindow(win);
-        
-        system.run();
+        UIManager windows = new UIManager(datas.json, s);
+   
+        //system.run();
         
         NeuralSystem.writeSettings(system);
 

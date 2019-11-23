@@ -19,5 +19,9 @@ public class IHM {
 	public static void info(String msg) {
 		System.out.println("["+(new Date()).toGMTString()+"] [INFO] - " + msg);
 	}
+	@SuppressWarnings("deprecation")
+	public static void error(String message) {
+		System.err.println("["+(new Date()).toGMTString()+"] [ERROR] - " + message);
+	}
     
 }

@@ -24,7 +24,7 @@ import org.piwel.linknet.parser.CharParser;
 
 
 //All this file will be reviewed in the next versions
-public class Window extends JFrame{
+public class _Window extends JFrame{
 
 	private DrawPanel panel;
 	private NeuralSystem neuralSystem; 
@@ -35,7 +35,7 @@ public class Window extends JFrame{
 	public boolean autoMode=true;
 	public String type;
 	
-	public Window(String model, Setting s) {
+	public _Window(String model, Setting s) {
 		this.model = model;
 		this.width = s.width;
 		this.height = s.height;
