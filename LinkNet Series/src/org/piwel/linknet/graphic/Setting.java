@@ -1,7 +1,6 @@
 package org.piwel.linknet.graphic;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -14,12 +13,12 @@ public class Setting implements Serializable{
 	private static final long serialVersionUID = -7567571565157L;
 	int width;
 	int height;
-	String user;
+	String token;
 	public Setting() {
 		
 	}
 	public Setting(String user,int width, int height) {
-		this.user = user;
+		this.token = user;
 		this.width = width;
 		this.height = height;
 	}
@@ -33,7 +32,6 @@ public class Setting implements Serializable{
 			IHM.info("Wrote settings file successfully");
 			fout.close();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -53,13 +51,12 @@ public class Setting implements Serializable{
 		return makeDefaultSetting(new Setting());
 	}
 	public static Setting makeDefaultSetting(Setting s) {
-		Setting sDefault = new Setting("USER", 1280, 720);
+		Setting sDefault = new Setting(null, 1280, 720);
 		
 		if(s.width == 0)	s.width = sDefault.width;
 		if(s.height == 0)	s.height = sDefault.height;
-		if(s.user == null)	s.user = sDefault.user;
+		if(s.token == null)	s.token = sDefault.token;
 		
-		writeSettings(s);
 		return s;
 	}
 	

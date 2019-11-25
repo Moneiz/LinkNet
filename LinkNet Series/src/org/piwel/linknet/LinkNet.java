@@ -52,8 +52,6 @@ public class LinkNet{
         UIManager windows = new UIManager(datas.json, s);
    
         //system.run();
-        
-        NeuralSystem.writeSettings(system);
 
     }
 

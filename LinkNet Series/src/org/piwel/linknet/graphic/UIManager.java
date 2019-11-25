@@ -41,7 +41,10 @@ public class UIManager  extends JFrame{
 		panel.setLayout(null);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		initFields();
+		
+		if(!Session.WSCheckSession(s.token)) {
+			initFields();
+		}
 		
 		add(panel);
 		setVisible(true);
@@ -77,8 +80,13 @@ public class UIManager  extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					generatedSession = new Session(mail.getText(), psw.getText());
-					if(generatedSession.isAuthentValid())
-						IHM.info(generatedSession.setToken());
+					if(generatedSession.isAuthentValid()) {
+						IHM.info(generatedSession.getToken());
+						setVisible(false);
+						
+						s.token = generatedSession.getToken();
+						Setting.writeSettings(s);
+					}
 				}catch (SessionException ex) {
 					mail.setText("");
 					psw.setText("");
