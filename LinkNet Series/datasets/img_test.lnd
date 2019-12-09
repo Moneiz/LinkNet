@@ -1,6 +1,6 @@
 {
 	"name":"Image Test",
-	"nbHN":[32,16],
+	"nbHN":[16,16],
 	"nbIN":0,
 	"nbOUT":1,
 	"type":"image",

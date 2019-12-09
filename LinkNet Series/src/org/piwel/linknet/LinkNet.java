@@ -49,9 +49,11 @@ public class LinkNet{
 
         Setting s = Setting.readSettings();
         
-        UIManager windows = new UIManager(datas.json, s);
-   
-        //system.run();
+        //UIManager windows = new UIManager(datas.json, s);
+        
+        
+        //if(s.token)
+        	system.run();
 
     }
 

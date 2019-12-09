@@ -325,7 +325,7 @@ public class NeuralSystem implements Runnable, Serializable {
 				{
 					learningRate = learningRate / 2;
 				}
-				errorRate = Math.sqrt(totalError / data.points().length) * 100;
+				errorRate = Math.sqrt(totalError) / nbOutputs * 100;
 				IHM.info("Iteration n°" + i + " - In "+(int)(System.nanoTime()-time)+" ms - Rate " + learningRate + " - Mean : " + new DecimalFormat("#.##").format(errorRate)  + " %");
 				i++;
 

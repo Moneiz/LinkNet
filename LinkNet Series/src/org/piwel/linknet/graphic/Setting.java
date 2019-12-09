@@ -11,9 +11,9 @@ import org.piwel.linknet.mlp.IHM;
 public class Setting implements Serializable{
 
 	private static final long serialVersionUID = -7567571565157L;
-	int width;
-	int height;
-	String token;
+	public int width;
+	public int height;
+	public String token;
 	public Setting() {
 		
 	}
